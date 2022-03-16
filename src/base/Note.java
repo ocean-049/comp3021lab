@@ -1,10 +1,11 @@
 package base;
 import java.util.Date;
 
-public class Note implements Comparable<Note> {
+public class Note implements Comparable<Note>,  java.io.Serializable {
 
 	private Date date;
 	private String title;
+	private static final long serialVersionUID = 1L;
 	
 	public Note(String title) {
 		this.title = title;
@@ -18,7 +19,7 @@ public class Note implements Comparable<Note> {
 	
 
 	public boolean equals(Note obj) {
-		if (this.title != obj.title)
+		if (this.title != obj.title) 
 			return false;
 		if (title == null)
 		{
