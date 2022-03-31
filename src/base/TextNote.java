@@ -70,17 +70,12 @@ public class TextNote extends Note implements java.io.Serializable {
 		File file = new File( Title + ".txt");
 		//pathFolder + File.separator + Title + ".txt"
 
-		if(file.exists()) {
-			System.out.println("file already created");
 
-		}
 		try {
 			
 			if(file.createNewFile())
 			{
 				System.out.println("Created file");
-			}else {
-				System.out.println("file existed?");
 			}
 			
 			FileWriter writer = new FileWriter(file);
