@@ -63,46 +63,37 @@ public class Folder implements Comparable<Folder>, java.io.Serializable {
 	
 	public List<Note> searchNotes(String keywords)
 	{
-		int Keyword_len_start = 0;
-		int Keyword_len_end = -1;
+
 		List<Note> t_notes = new ArrayList<Note>(); 
-		String [] keyword_1 = {null,null};
-		String []keyword_2 = {null,null};
+		String [] keyword_all;
+		List<String []> keyword_string = new ArrayList<String[]>() ;
 		
-		for(int i = 0; i < 2; i++) {
+		
+
 			
-			for(Keyword_len_start = ++Keyword_len_end; Character.isWhitespace(keywords.charAt(Keyword_len_end)) == false && Keyword_len_end<keywords.length(); Keyword_len_end++ )
+			keyword_all = keywords.split(" ");
+			for(int j = 0; j < keyword_all.length; j++)
 			{
-				;
+				String []  keyword  = {keyword_all[j].toLowerCase(), keyword_all[j].toLowerCase() };
+				if(keyword_all[j].equalsIgnoreCase("or"))
+				{
+					keyword_string.remove(keyword_string.size() - 1);
+					keyword[0] = keyword_all[j - 1].toLowerCase();
+					if(j != keyword_all.length + 1)
+					keyword[1] = keyword_all[j + 1].toLowerCase();
+					j++;
+					
+				}
+				keyword_string.add(keyword);
 			}
-			keyword_1[i] = keywords.substring(Keyword_len_start, Keyword_len_end);
-			
-			
-			for(Keyword_len_start = ++Keyword_len_end; Character.isWhitespace(keywords.charAt(Keyword_len_end)) == false && Keyword_len_end<keywords.length(); Keyword_len_end++ )
-			{
-				;
-			}
-			
-			if( Keyword_len_end < keywords.length())	
-			for(Keyword_len_start = ++Keyword_len_end;  Keyword_len_end <keywords.length(); Keyword_len_end++ )
-			{
-				if(Character.isWhitespace(keywords.charAt(Keyword_len_end)))
-					break;
-			}
-			keyword_2[i] = keywords.substring(Keyword_len_start, Keyword_len_end);
-				
 
 			
 			
-
 			
-		}
+			
 		
-		for(int k = 0; k < 2; k++)
-		{
-			keyword_1[k] = keyword_1[k].toLowerCase();
-			keyword_2[k] = keyword_2[k].toLowerCase();
-		}
+		
+
 
 		for(Note N : notes)
 		{
@@ -112,21 +103,34 @@ public class Folder implements Comparable<Folder>, java.io.Serializable {
 
 				String content = t_TextNote.content.toLowerCase();
 				String title = t_TextNote.getTitle().toLowerCase();
-				if(((content.contains(keyword_1[0]) || content.contains(keyword_2[0])) && (content.contains(keyword_1[1]) || content.contains(keyword_2[1]))) || ((title.contains(keyword_1[0]) || title.contains(keyword_2[0])) && (title.contains(keyword_1[1]) || title.contains(keyword_2[1]))) )
+				boolean matchKeyword = true;
+				for(String [] keyword : keyword_string)
 				{
-					t_notes.add(t_TextNote);
+					if(title.contains(keyword[0]) || title.contains(keyword[1]) || content.contains(keyword[0]) || content.contains(keyword[1]) )
+						;
+					else
+						matchKeyword = false;
 				}
+				if(matchKeyword == true)
+					t_notes.add(t_TextNote);
 
 			}
 			else if(N instanceof ImageNote)
 			{
 				ImageNote t_ImageNote = (ImageNote)N;
 				String title = t_ImageNote.getTitle().toLowerCase();
+				boolean matchKeyword = true;
 				
-				if(title.contains(keyword_1[0]) || title.contains(keyword_2[0]) && title.contains(keyword_1[1]) || title.contains(keyword_2[1])) 
+				for(String [] keyword : keyword_string)
 				{
-					t_notes.add(t_ImageNote);
+					if(title.contains(keyword[0]) || title.contains(keyword[1]))
+						;
+					else
+						matchKeyword = false;
 				}
+				if(matchKeyword == true)
+					t_notes.add(t_ImageNote);
+
 			}
 		}
 		return t_notes;
