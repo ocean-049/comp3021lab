@@ -9,11 +9,6 @@
 			<accessrule kind="nonaccessible" pattern="javafx/**"/>
 		</accessrules>
 	</classpathentry>
-	<classpathentry kind="var" path="JAVAFXLIB/javafx.base.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="C:/Program Files/Java/javafx-sdk-18/lib/javafx.fxml.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
@@ -44,13 +39,15 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="var" path="JAVAFXLIB/javafx.controls.jar">
+	<classpathentry kind="lib" path="C:/Program Files/Java/javafx-sdk-18/lib/javafx.base.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="var" path="JAVAFXLIB"/>
-	<classpathentry kind="lib" path="C:/Program Files/Java/javafx-sdk-18/lib/javafx.base.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Java/javafx-sdk-18/lib/javafx.controls.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/javafx-sdk-18/lib/javafx.controls.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
